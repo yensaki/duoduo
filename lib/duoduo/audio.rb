@@ -1,4 +1,6 @@
 require 'open3'
+require 'tmpdir'
+require 'duoduo/piece'
 
 # need: sox installed
 class Duoduo::Audio
@@ -11,7 +13,7 @@ class Duoduo::Audio
 
     split!
     @pieces = []
-    Dir.glob(File.join(sliced_dir, '*')).sort.each do |filepath|
+    Dir.glob(File.join(sliced_dir, '*.mp3')).sort.each do |filepath|
       @pieces << Duoduo::Piece.new(filepath)
     end
   end
@@ -22,7 +24,7 @@ class Duoduo::Audio
   end
 
   def basename
-    @basename ||= File.basename(@filepath)
+    @basename ||= "#{File.basename(@filepath, '.*')}.mp3"
   end
 
   def sliced_dir
