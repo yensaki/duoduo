@@ -16,6 +16,7 @@ class Duoduo::Audio
     Dir.glob(File.join(sliced_dir, '*.mp3')).sort.each do |filepath|
       @pieces << Duoduo::Piece.new(filepath)
     end
+    @pieces
   end
 
   # private
