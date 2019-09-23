@@ -4,8 +4,9 @@ require 'duoduo/piece'
 
 # need: sox installed
 class Duoduo::Audio
-  def initialize(filepath)
+  def initialize(filepath, extension: 'mp3')
     @filepath = filepath
+    @extension = extension
   end
 
   def pieces
@@ -13,7 +14,7 @@ class Duoduo::Audio
 
     split!
     @pieces = []
-    Dir.glob(File.join(sliced_dir, '*.mp3')).sort.each do |filepath|
+    Dir.glob(File.join(sliced_dir, "*.#{@extension}")).sort.each do |filepath|
       @pieces << Duoduo::Piece.new(filepath)
     end
     @pieces
@@ -25,7 +26,7 @@ class Duoduo::Audio
   end
 
   def basename
-    @basename ||= "#{File.basename(@filepath, '.*')}.mp3"
+    @basename ||= "#{File.basename(@filepath, '.*')}.#{@extension}"
   end
 
   def sliced_dir
