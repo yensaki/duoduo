@@ -1,6 +1,8 @@
 require 'open3'
 require 'tmpdir'
 require 'duoduo/piece'
+require 'securerandom'
+require 'fileutils'
 
 # need: sox installed
 class Duoduo::Audio
@@ -30,6 +32,6 @@ class Duoduo::Audio
   end
 
   def sliced_dir
-    @sliced_dir ||= Dir.tmpdir
+    @sliced_dir ||= File.join(Dir.tmpdir, SecureRandom.hex).tap { |dir| FileUtils.mkdir_p(dir) }
   end
 end
