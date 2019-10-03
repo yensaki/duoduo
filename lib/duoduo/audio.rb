@@ -24,7 +24,7 @@ class Duoduo::Audio
 
   # private
   def split!
-    Open3.capture3("sox #{@filepath} #{File.join(sliced_dir, basename)} silence 1 0.3 1% 1 0.3 1% : newfile : restart")
+    Open3.capture3("sox #{@filepath} #{File.join(sliced_dir, basename)} silence -l 0 1 0.3 1% : newfile : restart")
   end
 
   def basename
